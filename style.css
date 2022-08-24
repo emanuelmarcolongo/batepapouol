@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+body {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+.paginaEntrada {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.paginaEntrada .logo, .paginaEntrada .usuario, .paginaEntrada .botao {
+    display: flex;
+}
+
+.paginaEntrada .logo {
+    width: 130px;
+    height: 92px;
+    margin: 0 auto;
+    margin-top: 72px;
+    margin-bottom: 94px;
+}
+
+.paginaEntrada .botao {
+    width: 109px;
+    height: 45px;
+    background-color: #e7e7e7;
+    color: #696969;
+    font-size: 18px;
+    margin: 0 auto;
+    border-radius: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+
+}
+
+.paginaEntrada .usuario {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+
+}
+
+.paginaEntrada .usuario input {
+    width: 261px;
+    height: 54px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.aviso {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    margin-top: 25px;
+}
+
+
+header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0px 6px 6px #ccc;
+    margin-bottom: 10px;
+}
+
+header .logo {
+    margin-left: 2%;
+}
+
+header .menu {
+    margin-right: 2%;
+}
+
+.conteudo {
+    width: 100%;
+    height:500px;
+    overflow-y: scroll;
+}
+
+footer {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    box-shadow: 6px 6px 6px #ccc;
+}
+
+footer img {
+    margin-right: 2%;
+}
+
+footer input {
+    height: 30px;
+    width: 80%;
+    margin-left: 2%;
+    border: 0px 0px solid white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 18px;
+    color: black;
+}
+
+.esconder {
+    display: none;
+}
+
+.mensagem, .mensagemStatus, .mensagemPrivada {
+    background-color: white;
+    margin: 4px 0;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 8px 10px;
+}
+
+.mensagemStatus {
+    background-color: #DCDCDC;
+}
+
+.mensagemPrivada {
+    background-color: #ffdede;
+}
