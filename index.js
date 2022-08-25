@@ -28,12 +28,12 @@ function deuCerto() {
     pegarMensagens();
     manterConexao();
     const idInterval = setInterval(manterConexao, 5000);
-    setInterval (atualizarMensagens, 3000);
+    setInterval(atualizarMensagens, 3000);
 
 
 }
 
-function pegarMensagens () {
+function pegarMensagens() {
     pagina = document.querySelector('.conteudo');
     const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     promessa.then(renderizarMensagens);
@@ -54,27 +54,27 @@ function renderizarMensagens(parametro) {
 
     for (let i = 0; i < informações.length; i++) {
         if (informações[i].type === 'message') {
-         pagina.innerHTML += `
+            pagina.innerHTML += `
     <div class="mensagem"> 
-        (${informações[i].time})   <strong>${informações[i].from}</strong> para <strong>${informações[i].to}</strong>:    ${informações[i].text}
-    </div>
-    `   
+        (${informações[i].time})\u00A0\u00A0<strong>${informações[i].from}</strong>\u00A0\u00A0para\u00A0\u00A0<strong>${informações[i].to}</strong>:\u00A0\u00A0${informações[i].text}
+        </div>
+    `
         }
         else if (informações[i].type === 'status') {
             pagina.innerHTML += `
     <div class="mensagemStatus"> 
-        (${informações[i].time})    <strong>${informações[i].from}</strong>  ${informações[i].text}
-    </div>
+        (${informações[i].time})\u00A0\u00A0<strong>${informações[i].from}</strong>\u00A0\u00A0${informações[i].text}
+        </div>
     `
         }
-        
- /*        else if (informações[i].type === 'private_message') {
-            pagina.innerHTML += `
-    <div class="mensagemPrivada"> 
-        (${informações[i].time})    <strong>${informações[i].from}</strong> para <strong>${informações[i].to}</strong>:   ${informações[i].text}
-    </div>
-    `
-        } */
+
+        /*        else if (informações[i].type === 'private_message') {
+                   pagina.innerHTML += `
+           <div class="mensagemPrivada"> 
+               (${informações[i].time})    <strong>${informações[i].from}</strong> para <strong>${informações[i].to}</strong>:   ${informações[i].text}
+           </div>
+           `
+               } */
     }
     scrollMensagem();
 }
@@ -99,11 +99,11 @@ function atualizarMensagens() {
 }
 
 function verificarStatus(parametro) {
-/*     usuariosOn(); */
+    /*     usuariosOn(); */
 }
 
 let conteudo;
-function enviarMensagem () {
+function enviarMensagem() {
 
     conteudo = document.querySelector('footer input').value;
 
