@@ -1,9 +1,11 @@
 /* deuCerto = login com sucesso (novo nome se usuário);
 deuErrado = login sem sucesso (criar outro usuário);
 deuCerto > pegarMensagens = faz o requisito do banco de dados do servidor;
-pegarMensagens > mensagens = renderiza as mensagems no html;
-enviarMensagem = envia mensgaem pro banco de dados e chama pegarMensagens para pegar o banco atualizado; */
-
+pegarMensagens > renderizarMensagens = renderiza as mensagems no html;
+enviarMensagem = envia mensgaem pro banco de dados e chama pegarMensagens para pegar o banco atualizado;
+scrollMensagem = pega a ultima mensagem da div conteudo e scrolla pra ela.
+manterConexao = faz um post com seu nome para o 'status' do servidor para saber que você está online;
+ */
 
 
 let nome = '';
@@ -24,37 +26,39 @@ function deuCerto() {
     let pagina = document.querySelector('.paginaEntrada');
     pagina.classList.add('esconder');
     pegarMensagens();
-
+    manterConexao();
     const idInterval = setInterval(manterConexao, 5000);
+    setInterval (atualizarMensagens, 3000);
 
 
 }
 
 function pegarMensagens () {
+    pagina = document.querySelector('.conteudo');
     const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
-    promessa.then(mensagens);
+    promessa.then(renderizarMensagens);
 }
 
 function deuErrado() {
     let aviso = document.querySelector('.aviso');
-    aviso.innerHTML = "Nome de usuário em uso, tente outra vez"
+    aviso.innerHTML = "Nome de usuário em uso ou em branco,  tente outra vez."
 }
 
+let pagina;
 let informações;
-function mensagens(parametro) {
+function renderizarMensagens(parametro) {
     informações = parametro.data;
-    console.log(informações);
-
-    const pagina = document.querySelector('.conteudo');
+    pagina = document.querySelector('.conteudo');
+    pagina.innerHTML = '';
 
 
     for (let i = 0; i < informações.length; i++) {
         if (informações[i].type === 'message') {
-            pagina.innerHTML += `
+         pagina.innerHTML += `
     <div class="mensagem"> 
-        (${informações[i].time})   <strong>${informações[i].from}</strong> para ${informações[i].to}:  ${informações[i].text}
+        (${informações[i].time})   <strong>${informações[i].from}</strong> para <strong>${informações[i].to}</strong>:    ${informações[i].text}
     </div>
-    `
+    `   
         }
         else if (informações[i].type === 'status') {
             pagina.innerHTML += `
@@ -63,19 +67,22 @@ function mensagens(parametro) {
     </div>
     `
         }
-        else if (informações[i].type === 'message') {
+        
+ /*        else if (informações[i].type === 'private_message') {
             pagina.innerHTML += `
     <div class="mensagemPrivada"> 
-        (${informações[i].time})    <strong>${informações[i].from}</strong> para ${informações[i].to}:  ${informações[i].text}
+        (${informações[i].time})    <strong>${informações[i].from}</strong> para <strong>${informações[i].to}</strong>:   ${informações[i].text}
     </div>
     `
-        }
+        } */
     }
+    scrollMensagem();
+}
 
-    /* Requisição de mensagens concluidas;
-    pegar o formato das mensagens;
-    modificar o innerHTML do conteudo para renderizar mensagens dentro; */
+function scrollMensagem() {
 
+    let scroll = document.querySelector('.conteudo');
+    scroll.lastElementChild.scrollIntoView();
 }
 /* 1 - Pedir o usuario;
 2 - Ao clicar em enviar o usuário, fazer o post para o servidor;
@@ -85,15 +92,20 @@ function mensagens(parametro) {
 function manterConexao() {
     const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', nome);
     promessa.then(verificarStatus);
+}
 
+function atualizarMensagens() {
+    pegarMensagens();
 }
 
 function verificarStatus(parametro) {
+/*     usuariosOn(); */
 }
 
+let conteudo;
 function enviarMensagem () {
 
-    const conteudo = document.querySelector('footer input').value;
+    conteudo = document.querySelector('footer input').value;
 
     const mensagem = {
         from: nome1,
@@ -104,4 +116,33 @@ function enviarMensagem () {
 
     const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagem);
     promessa.then(pegarMensagens);
+    promessa.catch(erroMensagem);
 }
+
+function erroMensagem() {
+    window.location.reload();
+}
+/* 
+
+function usuariosOn() {
+    const promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+    promessa.then (teste1);
+}
+
+let element;
+function teste1(parametro) {
+    element = document.querySelector('.usuariosOn');
+    element.innerHTML = '';
+
+    for (let i =0; i < parametro.data.length; i++) {
+     element.innerHTML += `<li><img src="imgs/pessoa.png" alt="">  ${parametro.data[i].name}</li>
+     `
+    }
+    console.log(parametro.data);
+}
+
+function menuLateral () {
+    const elemento = document.querySelector('.menuLateral');
+    elemento.classList.remove('esconder');
+}
+ */
