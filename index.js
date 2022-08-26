@@ -105,18 +105,20 @@ function verificarStatus(parametro) {
 let conteudo;
 function enviarMensagem() {
 
-    conteudo = document.querySelector('footer input').value;
+    conteudo = document.querySelector('footer input');
 
     const mensagem = {
         from: nome1,
         to: 'Todos',
-        text: conteudo,
+        text: conteudo.value,
         type: 'message' // ou "private_message" para o bônus
     }
 
     const promessa = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', mensagem);
     promessa.then(pegarMensagens);
     promessa.catch(erroMensagem);
+
+    conteudo.value = '';  
 }
 
 function erroMensagem() {
