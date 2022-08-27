@@ -84,9 +84,7 @@ function scrollMensagem() {
     let scroll = document.querySelector('.conteudo');
     scroll.lastElementChild.scrollIntoView();
 }
-/* 1 - Pedir o usuario;
-2 - Ao clicar em enviar o usuário, fazer o post para o servidor;
-3 -  */
+
 
 
 function manterConexao() {
@@ -107,6 +105,10 @@ function enviarMensagem() {
 
     conteudo = document.querySelector('footer input');
 
+    if (conteudo.value === '' || conteudo.value === null) {
+        return;
+    }
+
     const mensagem = {
         from: nome1,
         to: 'Todos',
@@ -121,8 +123,8 @@ function enviarMensagem() {
     conteudo.value = '';  
 }
 
-function erroMensagem() {
-    window.location.reload();
+function erroMensagem(erro) {
+    window.location.reload()
 }
 /* 
 
